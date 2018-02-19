@@ -57,20 +57,20 @@ for x in d['rows']:
     hashtags=obtieneHash(text)
     retweeted=x['key']['retweeted']
     favorited=x['key']['favorited']
-<<<<<<< HEAD
+
     if len(hashtags) > 0:
 
         print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
         print  hashtags
         cont+=1
         print cont
-=======
+
 
     print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
 
     cont+=1
     print cont
->>>>>>> a9080b2aac7914d1369879d5b9c31cbdb7b67172
+
 
     #print total
 #for x in f:

@@ -13,7 +13,7 @@ import re
 
 URL = 'localhost'
 #db_name = 'tweetsuio'
-db_name = 'tweetscuen'
+db_name = 'dbcuenca1'
 
 
 '''========couchdb'=========='''
@@ -30,7 +30,7 @@ except:
 
 
 #url = 'http://127.0.0.1:5984/tweetsuio/_design/tweets/_view/user_tweets'
-url = 'http://localhost:5984/tweetscuen/_design/vistacuencapais/_view/cuencapais'
+url = 'http://localhost:5984/dbcuenca1/_design/vistacuencapais/_view/cuencapais'
 req = urllib2.Request(url)
 f = urllib2.urlopen(req)
 d = json.loads(f.read())# esta variable manaje contenido
@@ -51,11 +51,12 @@ for x in d['rows']:
             if 'Si'in word:
                 word = word.strip('\n').strip('#').lower()
                 diccioHash[word] = 1
-            if 'No' in word:
+            if 'vota'in word:
                 word = word.strip('\n').strip('#').lower()
                 diccioHash[word] = 1
-
-
+            if 'consulta' in word:
+                word = word.strip('\n').strip('#').lower()
+                diccioHash[word] = 1
 
 for x in diccioHash:
     print x
