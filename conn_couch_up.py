@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import words as words
+
 __author__ = 'elikary'
 
 '''
@@ -39,7 +41,7 @@ d = json.loads(f.read())# esta variable manaje contenido
 #archivo=open('archivo.txt','w')
 
 text=''
-hashtags=''
+#hashtags=''
 retweeted=''
 favorited=''
 cont=0
@@ -49,7 +51,8 @@ for x in d['rows']:
     retweeted=x['key']['retweeted']
     favorited=x['key']['favorited']
     if len(hashtags) > 0:
-        # print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
+
+        print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
         print  hashtags
         cont+=1
         print cont
