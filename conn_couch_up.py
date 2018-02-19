@@ -13,11 +13,11 @@ import re
 
 URL = 'localhost'
 #db_name = 'tweetsuio'
-db_name = 'twitterny'
+db_name = 'bdcuenca1'
 
 
 '''========couchdb'=========='''
-server = couchdb.Server('http://'+URL+':5984/')  #('http://245.106.43.184:5984/') poner la url de su base de datos
+server = couchdb.Server('http://localhost:5984/')  #('http://245.106.43.184:5984/') poner la url de su base de datos
 try:
     print db_name
     db = server[db_name]
@@ -30,26 +30,31 @@ except:
 
 
 #url = 'http://127.0.0.1:5984/tweetsuio/_design/tweets/_view/user_tweets'
-url = 'http://localhost:5984/twitterny/_design/Bi/_view/vistaNY'
+url = 'http://localhost:5984/bdcuenca1/_design/vistacuencapais/_view/cuencapais'
 req = urllib2.Request(url)
 f = urllib2.urlopen(req)
 d = json.loads(f.read())# esta variable manaje contenido
 
 #print (d)
-archivo=open('tweetsNY.txt','w')
+#archivo=open('archivo.txt','w')
 
+text=''
+hashtags=''
+retweeted=''
+favorited=''
+cont=0
 for x in d['rows']:
-    a = x['value']['text']
-    # archivo.write(str(a)) # pasa contenido base a .txt
-    total = ''
-    for letra in a:
-        if re.match('([A-Za-z0-9\s])',letra):
-            total+= letra
+    text=x['key']['text']
+    hashtags=x['key']['entities']['hashtags']
+    retweeted=x['key']['retweeted']
+    favorited=x['key']['favorited']
+    if len(hashtags) > 0:
+        # print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
+        print  hashtags
+        cont+=1
+        print cont
 
-    total += '\n'
-
-    archivo.write(total)
-    print total
+    #print total
 #for x in f:
 #    print(x)
 #f.close()
