@@ -36,6 +36,15 @@ def tendenciaFavorito(favorito,tendTxt):
     else:
         return -1
 
+def darCabecera():
+    datos = '@relation ConsolidatedTrainData'
+    datos += '\n@attribute tendtexto numeric'
+    datos += '\n@attribute tendhashtag numeric'
+    datos += '\n@attribute retweeted numeric'
+    datos += '\n@attribute favourited numeric'
+    datos += '\n@attribute tendencia numeric'
+    datos += '\n@data'
+    return datos
 
 def crearlineaARF(texto,hashtag,retweeted,favourited):
 
@@ -50,6 +59,23 @@ def crearlineaARF(texto,hashtag,retweeted,favourited):
     tRetwet = tendenciaRetweet(retweeted, tTexto)
     linea += ',' + str(tRetwet)
     tFavorito = tendenciaFavorito(favourited, tTexto)
-    linea += ',' + str(tRetwet) + ',' + str(tTexto)
+    linea += ',' + str(tFavorito) + ',' + str(tTexto)
+
+    return linea
+
+def crearlineaJSON(texto,hashtag,retweeted,favourited):
+
+    linea = "\n{"
+    tTexto = tendenciaTexto(texto)
+    linea += '\"texto\":\"'+str(tTexto)+'\"'
+    try:
+        tHash = tendenciaHash(hashtag)
+        linea += ',' + str(tHash)
+    except:
+        linea += ',0'
+    tRetwet = tendenciaRetweet(retweeted, tTexto)
+    linea += ',\"texto\":\"' + str(tRetwet)+'\"'
+    tFavorito = tendenciaFavorito(favourited, tTexto)
+    linea += ',\"texto\":\"' + str(tFavorito) +'\"'+'}'
 
     return linea

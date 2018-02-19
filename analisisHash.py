@@ -39,21 +39,17 @@ d = json.loads(f.read())# esta variable manaje contenido
 #archivo=open('archivo.txt','w')
 
 diccioHash={}
-
+cont=0
 for x in d['rows']:
     words=x['key'].split(' ')
 
     for word in words:
         if '#' in word:
-            if '7' in word:
-                word = word.strip('\n').strip('#').lower()
-                diccioHash[word] = 1
-            if 'Si'in word:
-                word = word.strip('\n').strip('#').lower()
-                diccioHash[word] = 1
-            if 'No' in word:
-                word = word.strip('\n').strip('#').lower()
-                diccioHash[word] = 1
+            word = word.strip('\n').strip('#').lower()
+            diccioHash[word] = cont
+            cont+=1
+            print cont
+
 
 
 
