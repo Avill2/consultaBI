@@ -37,16 +37,19 @@ def tendenciaFavorito(favorito,tendTxt):
         return -1
 
 
-archivoEntrenamiento=open('entrenamiento.arff','w')
-linea="\n"
-tTexto=tendenciaTexto()
-linea+=str(tTexto)
-try:
-    tHash=tendenciaHash()
-    linea += ',' + str(tHash)
-except:
-    linea+=',0'
-tRetwet=tendenciaRetweet(,tTexto)
-linea+=','+str(tRetwet)
-tFavorito=tendenciaFavorito(,tTexto)
-linea+=','+str(tRetwet)+','+str(tTexto)
+def crearlineaARF(texto,hashtag,retweeted,favourited):
+
+    linea = "\n"
+    tTexto = tendenciaTexto(texto)
+    linea += str(tTexto)
+    try:
+        tHash = tendenciaHash(hashtag)
+        linea += ',' + str(tHash)
+    except:
+        linea += ',0'
+    tRetwet = tendenciaRetweet(retweeted, tTexto)
+    linea += ',' + str(tRetwet)
+    tFavorito = tendenciaFavorito(favourited, tTexto)
+    linea += ',' + str(tRetwet) + ',' + str(tTexto)
+
+    return linea
