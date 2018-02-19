@@ -3,11 +3,11 @@ noHashtag={}
 
 # Funciones extractoras
 def tendenciaTexto(oracion):
-    if oracion.contains(' si '):
+    if ' si ' in oracion:
         return 1
-    elif oracion.contains(' no '):
+    elif ' no ' in oracion:
         return -1
-    elif oracion.contains('si'):
+    elif 'si' in oracion:
         return  1
     else:
         return -1

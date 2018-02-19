@@ -9,18 +9,11 @@ import couchdb
 import sys
 import urllib2
 import json
-
-# funcion de hashtag
-def obtieneHash(x):
-    total=''
-    words = x.split(' ')
-    for word in words:
-        if '#' in word:
-            total+=' '+word.strip('\n').strip('#')
+import re
 
 URL = 'localhost'
 #db_name = 'tweetsuio'
-db_name = 'bdcuenca1'
+db_name = 'tweetscuen'
 
 
 '''========couchdb'=========='''
@@ -37,7 +30,7 @@ except:
 
 
 #url = 'http://127.0.0.1:5984/tweetsuio/_design/tweets/_view/user_tweets'
-url = 'http://localhost:5984/bdcuenca1/_design/vistacuencapais/_view/cuencapais'
+url = 'http://localhost:5984/tweetscuen/_design/vistacuencapais/_view/cuencapais'
 req = urllib2.Request(url)
 f = urllib2.urlopen(req)
 d = json.loads(f.read())# esta variable manaje contenido
@@ -45,23 +38,25 @@ d = json.loads(f.read())# esta variable manaje contenido
 #print (d)
 #archivo=open('archivo.txt','w')
 
-text=''
-hashtags=''
-retweeted=''
-favorited=''
-cont=0
+diccioHash={}
+
 for x in d['rows']:
-    text=x['key']['text']
-    hashtags=obtieneHash(text)
-    retweeted=x['key']['retweeted']
-    favorited=x['key']['favorited']
+    words=x['key'].split(' ')
 
-    print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
+    for word in words:
+        if '#' in word:
+            if '7' in word:
+                word = word.strip('\n').strip('#').lower()
+                diccioHash[word] = 1
+            if 'Si'in word:
+                word = word.strip('\n').strip('#').lower()
+                diccioHash[word] = 1
+            if 'No' in word:
+                word = word.strip('\n').strip('#').lower()
+                diccioHash[word] = 1
 
-    cont+=1
-    print cont
 
-    #print total
-#for x in f:
-#    print(x)
-#f.close()
+
+for x in diccioHash:
+    print x
+
