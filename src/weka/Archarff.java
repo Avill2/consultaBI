@@ -25,7 +25,8 @@ public class Archarff {
 		
 		try {
 			
-			FileReader trainreader =new FileReader("src/weka/entrenamiento.arff");
+			//FileReader trainreader =new FileReader("src/weka/entrenamiento.arff");
+			FileReader trainreader =new FileReader("src/weka/dataQuito.arff");
 			
 			//instancias
 			Instances train= new Instances(trainreader);
@@ -88,7 +89,10 @@ try {
 	public void predecir(){
 try {
 			
-			FileReader testreader =new FileReader("src/weka/prediccion.arff");
+			//FileReader testreader =new FileReader("src/weka/prediccion.arff");
+	//FileReader testreader =new FileReader("src/weka/dataCuenca.arff");
+	//FileReader testreader =new FileReader("src/weka/dataQuito.arff");
+	FileReader testreader =new FileReader("src/weka/dataGuayaquil.arff");
 			
 			//instancias
 			Instances test= new Instances(testreader);
@@ -103,10 +107,19 @@ try {
 			evaltest.evaluateModel(mlp,test);
 			ArrayList <Prediction> precciones =evaltest.predictions();
 			
+			int sis=0,nos=0;
 			for(int i=0;i<precciones.size();i++){
 				Prediction p= precciones.get(i);
+				
+				if (p.predicted()==1) {
+					sis++;
+				}else {
+					nos++;
+				}
 				System.out.println(p.predicted());
 			}
+			
+			System.out.println("Sis: "+sis+" ,NOs: "+nos);
 			
 			
 			
@@ -173,11 +186,14 @@ try {
 			// TODO: handle exception
 			System.out.println("mal");
 		}
+		
 
 		if(resultado.contains("1")){
 			resultado="Tendencia por el SI";
+			
 		}else
 			resultado="Tendencia por el NO";
+			
 
 
 		return resultado;
