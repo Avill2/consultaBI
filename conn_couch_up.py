@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import words as words
-
 __author__ = 'elikary'
 
 '''
@@ -11,6 +9,7 @@ import couchdb
 import sys
 import urllib2
 import json
+import translate
 
 # funcion de hashtag
 def obtieneHash(x):
@@ -44,35 +43,27 @@ req = urllib2.Request(url)
 f = urllib2.urlopen(req)
 d = json.loads(f.read())# esta variable manaje contenido
 
-#print (d)
-#archivo=open('archivo.txt','w')
+
 
 text=''
-#hashtags=''
+hashtags=''
 retweeted=''
 favorited=''
 cont=0
+
+archivoJSON= open('archivo.JSON','w')
+archivoARFF = open('archivo.arff','w')
+archivoARFF.write(translate.darCabecera())
+
 for x in d['rows']:
     text=x['key']['text']
     hashtags=obtieneHash(text)
     retweeted=x['key']['retweeted']
     favorited=x['key']['favorited']
 
-    if len(hashtags) > 0:
-
-        print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
-        print  hashtags
-        cont+=1
-        print cont
-
-
     print "Texto",text,"Hashtag",hashtags,"rete",retweeted,"favorito",favorited
-
     cont+=1
     print cont
 
-
-    #print total
-#for x in f:
-#    print(x)
-#f.close()
+    archivoARFF.write(translate.crearlineaARF(text,hashtags,retweeted,favorited))
+    archivoJSON.write(translate.crearlineaJSON(text,hashtags,retweeted,favorited))

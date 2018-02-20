@@ -2,7 +2,7 @@
 __author__ = 'elikary'
 
 '''
- QUITO
+ cuenca
 ==============
 '''
 import couchdb
@@ -13,7 +13,7 @@ import re
 
 URL = 'localhost'
 #db_name = 'tweetsuio'
-db_name = 'dbcuenca1'
+db_name = 'tweetscuen'
 
 
 '''========couchdb'=========='''
@@ -30,7 +30,7 @@ except:
 
 
 #url = 'http://127.0.0.1:5984/tweetsuio/_design/tweets/_view/user_tweets'
-url = 'http://localhost:5984/dbcuenca1/_design/vistacuencapais/_view/cuencapais'
+url = 'http://localhost:5984/tweetscuen/_design/vistacuencapais/_view/cuencapais'
 req = urllib2.Request(url)
 f = urllib2.urlopen(req)
 d = json.loads(f.read())# esta variable manaje contenido
@@ -39,24 +39,17 @@ d = json.loads(f.read())# esta variable manaje contenido
 #archivo=open('archivo.txt','w')
 
 diccioHash={}
-
+cont=0
 for x in d['rows']:
     words=x['key'].split(' ')
 
     for word in words:
         if '#' in word:
-            if '7' in word:
-                word = word.strip('\n').strip('#').lower()
-                diccioHash[word] = 1
-            if 'Si'in word:
-                word = word.strip('\n').strip('#').lower()
-                diccioHash[word] = 1
-            if 'vota'in word:
-                word = word.strip('\n').strip('#').lower()
-                diccioHash[word] = 1
-            if 'consulta' in word:
-                word = word.strip('\n').strip('#').lower()
-                diccioHash[word] = 1
+            word = word.strip('\n').strip('#')
+            diccioHash[word] = cont
+
+            #cont+=1
+            #print cont
 
 for x in diccioHash:
     print x
