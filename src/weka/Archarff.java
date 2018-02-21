@@ -6,6 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.evaluation.Prediction;
@@ -25,8 +30,8 @@ public class Archarff {
 		
 		try {
 			
-			//FileReader trainreader =new FileReader("src/weka/entrenamiento.arff");
-			FileReader trainreader =new FileReader("src/weka/dataQuito.arff");
+			FileReader trainreader =new FileReader("src/weka/entrenamiento.arff");
+			//FileReader trainreader =new FileReader("src/weka/dataQuito.arff");
 			
 			//instancias
 			Instances train= new Instances(trainreader);
@@ -91,8 +96,8 @@ try {
 			
 			//FileReader testreader =new FileReader("src/weka/prediccion.arff");
 	//FileReader testreader =new FileReader("src/weka/dataCuenca.arff");
-	//FileReader testreader =new FileReader("src/weka/dataQuito.arff");
-	FileReader testreader =new FileReader("src/weka/dataGuayaquil.arff");
+	FileReader testreader =new FileReader("src/weka/dataQuito.arff");
+	//FileReader testreader =new FileReader("src/weka/dataGuayaquil.arff");
 			
 			//instancias
 			Instances test= new Instances(testreader);
@@ -121,7 +126,23 @@ try {
 			
 			System.out.println("Sis: "+sis+" ,NOs: "+nos);
 			
-			
+			// Fuente de Datos
+	        DefaultPieDataset data = new DefaultPieDataset();
+	        data.setValue("SI", sis);
+	        data.setValue("NO", nos);
+	 
+	        // Creando el Grafico
+	        JFreeChart chart = ChartFactory.createPieChart(
+	         "CONSULTA POPULAR", 
+	         data, 
+	         true, 
+	         true, 
+	         false);
+	 
+	        // Mostrar Grafico
+	        ChartFrame frame = new ChartFrame("JFreeChart", chart);
+	        frame.pack();
+	        frame.setVisible(true);
 			
 			
 			testreader.close();
